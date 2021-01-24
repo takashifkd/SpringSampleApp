@@ -92,6 +92,38 @@
 							</div>
 						</td>
 					</tr>
+
+					<!-- エンジニア領域の入力エリア -->
+					<tr>
+						<th class="active">どの領域のエンジニアですか？</th>
+						<td>
+							<div class="form-group" th:classappend="${#fields.hasErrors('typeOfEngineer')}?'has-error'">
+								<!-- ラジオボタン実装 -->
+								<div th:each="item:${radioTypeOfEngineer}">
+									<input type="radio" name="radioTypeOfEngineer"
+									th:text="${item.key}" th:value="${item.value}" th:field="*{typeOfEngineer}" />
+									<span class="text-danger"
+									th:if="${#fields.hasErrors('typeOfEngineer')}" th:errors="*{typeOfEngineer}">typeOfEngineer error</span>
+								</div>
+							</div>
+						</td>
+					</tr>
+
+					<!-- 使用言語の入力エリア -->
+					<tr>
+						<th class="active">使用言語は何ですか？</th>
+						<td>
+							<div class="form-group" th:classappend="${#fields.hasErrors('usingLanguage')}?'has-error'">
+								<!-- ラジオボタン実装 -->
+								<div th:each="item:${radioUsingLanguage}">
+									<input type="radio" name="radioUsingLanguage"
+									th:text="${item.key}" th:value="${item.value}" th:field="*{usingLanguage}" />
+									<span class="text-danger"
+									th:if="${#fields.hasErrors('usingLanguage')}" th:errors="*{usingLanguage}">usingLanguage error</span>
+								</div>
+							</div>
+						</td>
+					</tr>
 				</table>
 
 				<ul>

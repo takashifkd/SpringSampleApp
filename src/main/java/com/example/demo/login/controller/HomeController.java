@@ -29,6 +29,10 @@ public class HomeController {
 
 	// 結婚ステータスのラジオボタン用変数
 	private Map<String, String> radioMarriage;
+	// エンジニア領域
+	private Map<String, String> radioTypeOfEngineer;
+	// 使用言語
+	private Map<String, String> radioUsingLanguage;
 	// ラジオボタンの初期化メソッド
 	private Map<String, String> initRadioMarriage() {
 		Map<String, String> radio = new LinkedHashMap<>();
@@ -36,6 +40,33 @@ public class HomeController {
 		// 既婚・未婚をMapに格納
 		radio.put("既婚", "true");
 		radio.put("未婚", "false");
+
+		return radio;
+	}
+
+	// エンジニア領域ラジオボタンの初期化
+	private Map<String, String> initRadioTypeOfEngineer(){
+		Map<String, String> radio = new LinkedHashMap<>();
+
+		// エンジニア領域をMapに格納
+		radio.put("フロントエンド", "0");
+		radio.put("バックエンド", "1");
+		radio.put("インフラ（クラウド含む）", "2");
+
+		return radio;
+	}
+
+	// 使用言語ラジオボタンの初期化
+	private Map<String, String> initRadioUsingLanguage(){
+		Map<String, String> radio = new LinkedHashMap<>();
+
+		// 使用言語をMapに格納
+		radio.put("HTML/CSS/JavaScript", "0");
+		radio.put("Java/Kotlin", "1");
+		radio.put("Ruby/Python", "2");
+		radio.put("Golang/Rust", "3");
+		radio.put("シェル", "4");
+		radio.put("その他", "5");
 
 		return radio;
 	}
@@ -81,11 +112,15 @@ public class HomeController {
 		// コンテンツ部分にユーザー詳細を表示するための文字列を登録
 		model.addAttribute("contents", "login/userDetail :: userDetail_contents");
 
-		// 結婚ステータス用ラジオボタンの初期化
+		// ラジオボタンの初期化
 		radioMarriage = initRadioMarriage();
+		radioTypeOfEngineer = initRadioTypeOfEngineer();
+		radioUsingLanguage = initRadioUsingLanguage();
 
 		// ラジオボタン用のMapをModelに登録
 		model.addAttribute("radioMarriage", radioMarriage);
+		model.addAttribute("radioTypeOfEngineer", radioTypeOfEngineer);
+		model.addAttribute("radioUsingLanguage", radioUsingLanguage);
 
 		// ユーザーIDのチェック
 		if(userId != null && userId.length() > 0) {
@@ -99,6 +134,8 @@ public class HomeController {
 			form.setBirthday(user.getBirthday());
 			form.setAge(user.getAge());
 			form.setMarriage(user.isMarriage());
+			form.setTypeOfEngineer(user.getTypeOfEngineer());
+			form.setUsingLanguage(user.getUsingLanguage());
 
 			// Modelに登録
 			model.addAttribute("signupForm", form);
@@ -123,6 +160,8 @@ public class HomeController {
 		user.setBirthday(form.getBirthday());
 		user.setAge(form.getAge());
 		user.setMarriage(form.isMarriage());
+		user.setTypeOfEngineer(form.getTypeOfEngineer());
+		user.setUsingLanguage(form.getUsingLanguage());
 
 		try {
 
@@ -158,6 +197,23 @@ public class HomeController {
 		}
 		return getUserList(model);
 
+	}
+
+	// グラフデータ
+	@GetMapping("/collectedData")
+	public String getGraphData(Model model) {
+		// コンテンツ部分にユーザー一覧を表示させるための文字列を登録
+		model.addAttribute("contents", "login/collectedData :: collectedData_contents");
+
+		// 集計データの生成（エンジニア種類）
+		Map<String, Object> countEngineerType = userService.count2();
+		// 集計データの生成（使用言語）
+		Map<String, Object> countUsingLanguage = userService.count3();
+		// Modelに集計データ（エンジニア種類）を登録
+		model.addAttribute("dataList1", countEngineerType);
+		model.addAttribute("dataList2", countUsingLanguage);
+
+		return "login/homeLayout";
 	}
 
 	// ログアウト

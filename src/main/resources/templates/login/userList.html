@@ -18,6 +18,8 @@
 					<th class="info col-sm-2">誕生日</th>
 					<th class="info col-sm-2">年齢</th>
 					<th class="info col-sm-2">結婚</th>
+					<th class="info col-sm-2">エンジニア領域</th>
+					<th class="info col-sm-2">使用言語（メイン）</th>
 					<th class="info col-sm-2"></th>
 				</tr>
 				<tr th:each="user:${userList}">
@@ -26,6 +28,20 @@
 					<td th:text="${#dates.format(user.birthday, 'YYYY/MM/dd')}"></td>
 					<td th:text="${user.age}"></td>
 					<td th:text="${user.marriage}?'既婚':'未婚'"></td>
+					<td th:switch="${user.typeOfEngineer}">
+						<p th:case="0">フロントエンド</p>
+						<p th:case="1">バックエンド</p>
+						<p th:case="2">インフラ（クラウド含む）</p>
+						<p th:case="*">その他</p>
+					</td>
+					<td th:switch="${user.usingLanguage}">
+						<p th:case="0">HTML/CSS/JavaScript</p>
+						<p th:case="1">Java/Kotlin</p>
+						<p th:case="2">Ruby/Python</p>
+						<p th:case="3">Golang/Rust</p>
+						<p th:case="4">シェル</p>
+						<p th:case="*">その他</p>
+					</td>
 					<!-- 動的URL -->
 					<td>
 						<a class="btn btn-primary"

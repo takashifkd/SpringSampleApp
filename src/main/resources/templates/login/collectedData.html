@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	<head>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<!-- コンテンツ部分 -->
+		<div th:fragment="collectedData_contents">
+			<div class="page-header">
+				<h1>集計データ</h1>
+			</div>
+			<p>エンジニア領域</p>
+			<table class="table table-bordered table-hover table-striped">
+				<tr>
+					<th class="info col-sm-2">フロントエンド</th>
+					<th class="info col-sm-2">バックエンド</th>
+					<th class="info col-sm-2">インフラ（クラウド含む）</th>
+				</tr>
+				<tr>
+					<td th:text="${dataList1.front}"></td>
+					<td th:text="${dataList1.back}"></td>
+					<td th:text="${dataList1.infra}"></td>
+				</tr>
+			</table>
+			<p>使用言語</p>
+			<table class="table table-bordered table-hover table-striped">
+				<tr>
+					<th class="info col-sm-2">HTML/CSS/JavaScript</th>
+					<th class="info col-sm-2">Java/Kotlin</th>
+					<th class="info col-sm-2">Ruby/Python</th>
+					<th class="info col-sm-2">Golang/Rust</th>
+					<th class="info col-sm-2">シェル</th>
+					<th class="info col-sm-2">その他</th>
+				</tr>
+				<tr>
+					<td th:text="${dataList2.data0}"></td>
+					<td th:text="${dataList2.data1}"></td>
+					<td th:text="${dataList2.data2}"></td>
+					<td th:text="${dataList2.data3}"></td>
+					<td th:text="${dataList2.data4}"></td>
+					<td th:text="${dataList2.data5}"></td>
+				</tr>
+			</table>
+		</div>
+	</body>
+</html>

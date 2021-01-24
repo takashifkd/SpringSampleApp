@@ -13,5 +13,7 @@ CREATE TABLE IF NOT EXISTS m_user(
 	birthday DATE,
 	age INT,
 	marriage BOOLEAN,
+	type_of_engineer INT,
+	using_language INT,
 	role VARCHAR(50)
 );

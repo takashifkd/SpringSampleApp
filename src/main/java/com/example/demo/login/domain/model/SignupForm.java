@@ -47,4 +47,14 @@ public class SignupForm {
 	@AssertFalse(groups = ValidGroup2.class)
 	private boolean marriage;
 
+	// エンジニア領域：0-2
+	@Min(value = 0, groups = ValidGroup2.class)
+	@Max(value = 2, groups = ValidGroup2.class)
+	private int typeOfEngineer;
+
+	// 使用言語：0-5
+	@Min(value = 0, groups = ValidGroup2.class)
+	@Max(value = 5, groups = ValidGroup2.class)
+	private int usingLanguage;
+
 }

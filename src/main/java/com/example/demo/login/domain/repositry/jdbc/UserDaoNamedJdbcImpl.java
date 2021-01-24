@@ -192,4 +192,16 @@ public class UserDaoNamedJdbcImpl implements UserDao {
 
 	}
 
+	@Override
+	public Map<String, Object> count2() throws DataAccessException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
+	@Override
+	public Map<String, Object> count3() throws DataAccessException {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
+
 }

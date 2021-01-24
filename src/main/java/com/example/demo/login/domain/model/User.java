@@ -25,6 +25,12 @@ public class User {
 	// 結婚ステータス
 	private boolean marriage;
 
+	// エンジニア領域
+	private int typeOfEngineer;
+
+	// 使用言語
+	private int usingLanguage;
+
 	// ロール
 	private String role;
 

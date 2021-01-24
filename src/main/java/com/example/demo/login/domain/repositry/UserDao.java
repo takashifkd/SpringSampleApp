@@ -1,6 +1,7 @@
 package com.example.demo.login.domain.repositry;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -10,6 +11,8 @@ public interface UserDao {
 
 	// Userテーブルの件数を取得
 	public int count() throws DataAccessException;
+	public Map<String, Object> count2() throws DataAccessException;
+	public Map<String, Object> count3() throws DataAccessException;
 
 	// Userテーブルにデータを１件insert
 	public int insertOne(User user) throws DataAccessException;

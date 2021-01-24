@@ -6,6 +6,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -44,6 +45,16 @@ public class UserService {
 	// カウント用
 	public int count() {
 		return dao.count();
+	}
+
+	// エンジニア領域カウント用
+	public Map<String, Object> count2() {
+		return dao.count2();
+	}
+
+	// 使用言語カウント用
+	public Map<String, Object> count3() {
+		return dao.count3();
 	}
 
 	// 全件取得用

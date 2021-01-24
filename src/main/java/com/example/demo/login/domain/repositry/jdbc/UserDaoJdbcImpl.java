@@ -2,6 +2,7 @@ package com.example.demo.login.domain.repositry.jdbc;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +33,38 @@ public class UserDaoJdbcImpl implements UserDao {
 		return count;
 	}
 
+	// エンジニア領域件数取得
+	@Override
+	public Map<String, Object> count2() {
+		Map<String, Object> countMap = new HashMap<String, Object>();
+		countMap.put("front", jdbc.queryForObject("SELECT COUNT(*) FROM m_user"
+				+ " WHERE type_of_engineer = 0", Integer.class));
+		countMap.put("back", jdbc.queryForObject("SELECT COUNT(*) FROM m_user"
+				+ " WHERE type_of_engineer = 1", Integer.class));
+		countMap.put("infra", jdbc.queryForObject("SELECT COUNT(*) FROM m_user"
+				+ " WHERE type_of_engineer = 2", Integer.class));
+		return countMap;
+	}
+
+	// 使用言語件数取得
+	@Override
+	public Map<String, Object> count3() {
+		Map<String, Object> countMap = new HashMap<String, Object>();
+		countMap.put("data0", jdbc.queryForObject("SELECT COUNT(*) FROM m_user"
+				+ " WHERE using_language = 0", Integer.class));
+		countMap.put("data1", jdbc.queryForObject("SELECT COUNT(*) FROM m_user"
+				+ " WHERE using_language = 1", Integer.class));
+		countMap.put("data2", jdbc.queryForObject("SELECT COUNT(*) FROM m_user"
+				+ " WHERE using_language = 2", Integer.class));
+		countMap.put("data3", jdbc.queryForObject("SELECT COUNT(*) FROM m_user"
+				+ " WHERE using_language = 3", Integer.class));
+		countMap.put("data4", jdbc.queryForObject("SELECT COUNT(*) FROM m_user"
+				+ " WHERE using_language = 4", Integer.class));
+		countMap.put("data5", jdbc.queryForObject("SELECT COUNT(*) FROM m_user"
+				+ " WHERE using_language = 5", Integer.class));
+		return countMap;
+	}
+
 	// Userテーブルに１件insert
 	@Override
 	public int insertOne(User user) throws DataAccessException {
@@ -46,14 +79,18 @@ public class UserDaoJdbcImpl implements UserDao {
 				+ " birthday,"
 				+ " age,"
 				+ " marriage,"
+				+ " type_of_engineer,"
+				+ " using_language,"
 				+ "role)"
-				+ " VALUES(?,?,?,?,?,?,?)"
+				+ " VALUES(?,?,?,?,?,?,?,?,?)"
 				, user.getUserId()
 				, password
 				, user.getUserName()
 				, user.getBirthday()
 				, user.getAge()
 				, user.isMarriage()
+				, user.getTypeOfEngineer()
+				, user.getUsingLanguage()
 				, user.getRole());
 
 		return rowNumber;
@@ -72,6 +109,8 @@ public class UserDaoJdbcImpl implements UserDao {
 		user.setBirthday((Date) map.get("birthday"));
 		user.setAge((int) map.get("age"));
 		user.setMarriage((boolean) map.get("marriage"));
+		user.setTypeOfEngineer((int) map.get("type_of_engineer"));
+		user.setUsingLanguage((int) map.get("using_language"));
 		user.setRole((String) map.get("role"));
 		return user;
 	}
@@ -97,6 +136,8 @@ public class UserDaoJdbcImpl implements UserDao {
 			user.setBirthday((Date) map.get("birthday"));
 			user.setAge((int) map.get("age"));
 			user.setMarriage((boolean) map.get("marriage"));
+			user.setTypeOfEngineer((int) map.get("type_of_engineer"));
+			user.setUsingLanguage((int) map.get("using_language"));
 			user.setRole((String) map.get("role"));
 
 			// 取得したレコードを追加
@@ -119,12 +160,16 @@ public class UserDaoJdbcImpl implements UserDao {
 				+ " birthday = ?,"
 				+ " age = ?,"
 				+ " marriage = ?"
+				+ " type_of_engineer = ?"
+				+ " using_language = ?"
 				+ " WHERE user_id = ?"
 				, password
 				, user.getUserName()
 				, user.getBirthday()
 				, user.getAge()
 				, user.isMarriage()
+				, user.getTypeOfEngineer()
+				, user.getUsingLanguage()
 				, user.getUserId());
 
 		 // トランザクション確認
